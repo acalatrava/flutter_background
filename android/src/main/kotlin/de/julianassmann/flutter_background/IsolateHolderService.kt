@@ -125,7 +125,11 @@ class IsolateHolderService : Service() {
             }
         }
 
-        startForeground(1, notification)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            startForeground(1, notification)
+        } else {
+            startForeground(1, notification, 4) // 4 == FOREGROUND_SERVICE_TYPE_PHONE_CALL
+        }
     }
 
     override fun onTaskRemoved(rootIntent: Intent) {
